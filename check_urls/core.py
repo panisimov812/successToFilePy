@@ -1,7 +1,6 @@
-import requests
 from requests.exceptions import RequestException
-from typing import Optional
-from .http_client import HttpClient  # Добавьте этот импорт
+from .http_client import HttpClient
+
 
 class HttpStatusHandler:
     @staticmethod
@@ -28,9 +27,10 @@ class HttpStatusHandler:
         if status_code < 200 or status_code >= 400:
             print(f"Ошибка (Код состояния: {status_code}): {url}")
 
+
 class CheckUrlsCore:
     def __init__(self):
-        self.http_client = HttpClient()  # Теперь HttpClient определен
+        self.http_client = HttpClient()
         self.status_handler = HttpStatusHandler()
 
     def check_urls(self, input_file: str, output_file: str):
@@ -45,7 +45,8 @@ class CheckUrlsCore:
                     try:
                         response = self.http_client.get(url)
                         self.status_handler.handle_success_status(response.status_code, url, output_f)
-                        self.status_handler.handle_redirect_status(response.status_code, url, output_f, self.http_client)
+                        self.status_handler.handle_redirect_status(response.status_code, url, output_f,
+                                                                   self.http_client)
                         self.status_handler.handle_error_status(response.status_code, url)
                     except RequestException as e:
                         print(f"Сетевая ошибка при обработке {url}: {e}")
