@@ -12,10 +12,8 @@ def normalize_url(url: str) -> str:
     :return: Нормализованный URL.
     """
     if not url.startswith(("http://", "https://")):
-        # Если URL не начинается с http:// или https://, добавляем https://www.
         url = "https://www." + url
     elif url.startswith("http://"):
-        # Если URL начинается с http://, заменяем на https://
         url = url.replace("http://", "https://", 1)
     return url
 
