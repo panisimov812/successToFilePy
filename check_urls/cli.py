@@ -1,7 +1,6 @@
 import click
 from typing import Optional, Tuple
-from .core import CheckUrlsCore
-
+from check_urls.core import CheckUrlsCore, normalize_url
 
 @click.command()
 @click.option("--input", required=True, help="Path to input file")
