@@ -17,6 +17,9 @@
   - Ошибки (4xx, 5xx) – красный 
   - Сетевые ошибки – фиолетовый
 ![img.png](img.png)
+- **HTML отчет с диаграммой и гистограммой для более удобного анализа полученных данных**:
+  - ![img_1.png](img_1.png)
+  - ![img_2.png](img_2.png)
 
 ## Структура проекта
 ```
@@ -38,7 +41,7 @@ check_urls/
   - **Редиректы (3xx)**: Переход по новому адресу и проверка доступности.
   - **Ошибки (4xx, 5xx)**: Логирование ошибки.
 - Ввод и вывод файлов задаются через аргументы командной строки.
-
+- HTML отчет о проделанной работе
 ## Установка
 
 ### 1. Клонирование репозитория
@@ -66,4 +69,7 @@ python -m check_urls.cli --input input.txt --output output.txt --header "Authori
 
 Пример без хедера
 python -m check_urls.cli --input urls.txt --output successful_urls.txt
+
+Пример запуска с созданием html отчета
+python -m check_urls.cli --input input.txt --output output.txt --report report.html
 ```

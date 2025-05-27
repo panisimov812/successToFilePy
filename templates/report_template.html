@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Checker Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .success { background-color: #d4edda; }
+        .error { background-color: #f8d7da; }
+        .redirect { background-color: #fff3cd; }
+        .network-error { background-color: #e2d4f0; }
+        .charts { display: flex; margin: 20px 0; }
+        .chart { margin-right: 20px; }
+        img { max-width: 400px; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>URL Checker Report</h1>
+    <p>Generated at: {{ timestamp }}</p>
+
+    <h2>Summary</h2>
+    <ul>
+        <li>Total URLs: {{ summary.total }}</li>
+        <li>Success (2xx): {{ summary.success }}</li>
+        <li>Redirects (3xx): {{ summary.redirects }}</li>
+        <li>Errors (4xx/5xx): {{ summary.errors }}</li>
+        <li>Network Errors: {{ summary.network_errors }}</li>
+    </ul>
+
+    <div class="charts">
+        <div class="chart">
+            <h3>Status Distribution</h3>
+            <img src="{{ pie_chart }}" alt="Status Distribution">
+        </div>
+        <div class="chart">
+            <h3>Response Times</h3>
+            <img src="{{ response_time_chart }}" alt="Response Times">
+        </div>
+    </div>
+
+    <h2>Details</h2>
+    <table>
+        <tr>
+            <th>URL</th>
+            <th>Status</th>
+            <th>Response Time (ms)</th>
+        </tr>
+        {% for item in details %}
+        <tr class="{{
+            'success' if item.status and 200 <= item.status < 300
+            else 'redirect' if item.status and 300 <= item.status < 400
+            else 'error' if item.status and item.status >= 400
+            else 'network-error'
+        }}">
+            <td>{{ item.url }}</td>
+            <td>{{ item.status if item.status is not none else 'Network Error' }}</td>
+            <td>{{ item.response_time if item.response_time is not none else 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
