@@ -1,6 +1,6 @@
 import click
 from typing import Optional, Tuple
-from check_urls.core import CheckUrlsCore, normalize_url
+from check_urls.core import CheckUrlsCore
 
 @click.command()
 @click.option("--input", required=True, help="Path to input file")
@@ -26,8 +26,8 @@ def check_urls(input: str, output: str, header: Optional[Tuple[str]] = None, no_
             headers[key.strip()] = value.strip()
 
     core = CheckUrlsCore()
-    core.check_urls(input, output, headers, not no_normalize)
     core.check_urls(input, output, headers=headers, normalize=not no_normalize, report_file=report)
 
-    if __name__ == "__main__":
-        check_urls()
+
+if __name__ == "__main__":
+    check_urls()
